@@ -3,6 +3,7 @@ package com.example.demo1;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 public class Players {
     public ImageView player1;
@@ -15,6 +16,7 @@ public class Players {
     private static int winner;
     private Button roll;
     public GridPane grid;
+    public Pane bottomPane;
 
     private boolean player1Turn, player2Turn;       // For turns of each player
     private boolean First1, First2;     // For start check of player
@@ -23,11 +25,12 @@ public class Players {
     private static int counter1, counter2;     // For snakes and ladders
     private int[] scoreBoard1, scoreBoard2;     // loss, win
 
-    Players(int noOfPlayers, ImageView player1, ImageView player2, ImageView playerTag1, ImageView playerTag2, GridPane grid, Button roll, String nam1, String nam2) {
+    Players(int noOfPlayers, ImageView player1, ImageView player2, ImageView playerTag1, ImageView playerTag2, GridPane grid, Button roll, Pane pane, String nam1, String nam2) {
         this.player1 = player1;
         this.player2 = player2;
         this.playerTag1 = playerTag1;
         this.playerTag2 = playerTag2;
+        this.bottomPane = pane;
 
         this.roll = roll;
         this.grid = grid;
@@ -249,6 +252,20 @@ public class Players {
         GridPane.setConstraints(player2, 0, 9);
         grid.getChildren().remove(player1);
         grid.getChildren().remove(player2);
+
+        bottomPane.getChildren().add(player1);
+        player1.setLayoutX(19);
+        player1.setLayoutY(-2);
+        player1.setTranslateX(15);
+        player1.setTranslateY(-10);
+
+        bottomPane.getChildren().add(player2);
+        player2.setLayoutX(-14);
+        player2.setLayoutY(-1);
+        player2.setTranslateX(28);
+        player2.setTranslateY(-10);
+
+        player1.setLayoutX(19);
 
         playerTag2.setOpacity(1.0);
         playerTag1.setOpacity(1.0);

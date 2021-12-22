@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,6 +27,7 @@ public class HelloController {
     public Button back;
     public ImageView tag1;
     public ImageView tag2;
+    public Pane bottomPane;
     @FXML
     private Label welcomeText;
     @FXML
@@ -43,11 +45,6 @@ public class HelloController {
     @FXML
     protected void backButtonClicked(ActionEvent actionEvent) throws IOException {
         System.out.println("Data Saved!");
-        /*FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("End-Box.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 272, 167);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();*/
 
         // Main method of EndBoxController Class
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("End-Box.fxml"));
@@ -83,14 +80,13 @@ public class HelloController {
     @FXML
     private void movePlayers(ActionEvent actionEvent) throws Exception {
         int i=1;
-        //System.out.println("In the movePlayers function: "+playingComputer);
         if (!playersInitialized)
         {
             InitialScene1 init = new InitialScene1();
             if (init.getComputerPlaying())
-                p = new Players(2, player1, player2, tag1, tag2, grid, roll, "Player1", "Computer");
+                p = new Players(2, player1, player2, tag1, tag2, grid, roll, bottomPane, "Player1", "Computer");
             else
-                p = new Players(2, player1, player2, tag1, tag2, grid, roll, "Player1", "Player2");
+                p = new Players(2, player1, player2, tag1, tag2, grid, roll, bottomPane, "Player1", "Player2");
 
             playersInitialized = true;
         }
