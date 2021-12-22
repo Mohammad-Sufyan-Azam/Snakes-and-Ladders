@@ -16,7 +16,6 @@ public class InitialScene1 {
     public Button Human;
     public Pane mainScene;
     private boolean ComputerPlaying = false;
-    HelloController h = new HelloController();
 
 
     public void PlayWithComputer(ActionEvent actionEvent) throws IOException {
@@ -27,15 +26,11 @@ public class InitialScene1 {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-        /*VBox v = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-        mainScene.getChildren().setAll(v);*/
     }
 
     public void PlayWithHuman(ActionEvent actionEvent) throws IOException {
         System.out.println("Playing with human");
         this.ComputerPlaying = false;
-        /*VBox v = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-        mainScene.getChildren().setAll(v);*/
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 580, 760);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

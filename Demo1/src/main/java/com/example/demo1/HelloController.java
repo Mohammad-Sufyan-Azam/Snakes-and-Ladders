@@ -44,8 +44,6 @@ public class HelloController {
 
     @FXML
     protected void backButtonClicked(ActionEvent actionEvent) throws IOException {
-        System.out.println("Data Saved!");
-
         // Main method of EndBoxController Class
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("End-Box.fxml"));
         Stage finishBox = new Stage();
