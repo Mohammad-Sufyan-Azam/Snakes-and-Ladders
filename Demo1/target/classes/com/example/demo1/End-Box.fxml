@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="282.0" style="-fx-border-color: gold; -fx-border-width: 3px; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.EndBoxController">
+<Pane fx:id="endBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="282.0" style="-fx-border-color: gold; -fx-border-width: 3px; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.EndBoxController">
    <children>
       <ImageView fitHeight="166.0" fitWidth="265.0" layoutX="3.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>

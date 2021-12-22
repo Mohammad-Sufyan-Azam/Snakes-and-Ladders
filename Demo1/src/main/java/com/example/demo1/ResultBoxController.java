@@ -1,12 +1,15 @@
 package com.example.demo1;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class ResultBoxController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ResultBoxController implements Initializable {
     public Label matchesWon;
     public Label matchesLost;
 
@@ -16,17 +19,25 @@ public class ResultBoxController {
     public Button MainMenu;
     public Button Back;
 
-    public void MainMenuButtonClicked(ActionEvent actionEvent) {
-        /*System.out.println("Matches lost: "+lost);
-        System.out.println("Matches won: "+won);*/
-        System.out.println("Main Menu Button Clicked");
+    public static int ResultBoxChooses;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        matchesLost.setText(Players.getLoser());
+        matchesWon.setText(Players.getWinner());
+        ResultBoxChooses = 0;
+    }
+
+    public void MainMenuButtonClicked() {
+        Stage curr = (Stage)Back.getScene().getWindow();
+        curr.close();
+        ResultBoxChooses = 1;
     }
 
     public void BackButtonClicked() {
-        System.out.println("Back Button Clicked");
-        Stage current = (Stage)Back.getScene().getWindow();
-        current.close();
+        Stage curr = (Stage)Back.getScene().getWindow();
+        curr.close();
+        ResultBoxChooses = 2;
     }
 
     public void setScore(int lost, int won) {

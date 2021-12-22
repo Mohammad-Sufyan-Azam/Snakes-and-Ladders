@@ -1,37 +1,49 @@
 package com.example.demo1;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EndBoxController {
+public class EndBoxController implements Initializable {
+    @FXML
+    private Pane endBox;
     @FXML
     private Button Back;
     @FXML
     private Button MainMenu;
 
+    public static int EndBoxChooses;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        EndBoxChooses = 0;
+    }
+
     @FXML
     private void BackButtonClicked() {
-        System.out.println("In BackButtonClicked function");
+        // Go back in game
         Stage curr = (Stage)Back.getScene().getWindow();
         curr.close();
+        EndBoxChooses = 2;
     }
     @FXML
     private void MainMenuButtonClicked() {
-        System.out.println("In MainMenuButtonClicked function");
+        // Goto Main Menu
+        Stage curr = (Stage)Back.getScene().getWindow();
+        curr.close();
+        EndBoxChooses = 1;
     }
 }
 

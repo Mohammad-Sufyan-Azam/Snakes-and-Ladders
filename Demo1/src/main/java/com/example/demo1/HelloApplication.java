@@ -10,10 +10,10 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Initial-Scene1.fxml"));
-        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 580, 760);   // 320x240  //580x720
         stage.setTitle("Snakes and Ladders");
         stage.setScene(scene);
+        stage.resizableProperty().setValue(false);
         stage.show();
     }
 

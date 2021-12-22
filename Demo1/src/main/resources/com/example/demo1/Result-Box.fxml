@@ -16,14 +16,14 @@
         </ImageView>
         <Button fx:id="Back" layoutX="162.0" layoutY="176.0" mnemonicParsing="false" onAction="#BackButtonClicked" opacity="0.0" prefHeight="28.0" prefWidth="97.0" style="-fx-background-radius: 10; -fx-background-image: url(&quot;src/main/resources/com/example/demo1/menu.jpg&quot;); -fx-background-size: 100% 100%;" text="Button" />
         <Button fx:id="MainMenu" layoutX="33.0" layoutY="179.0" mnemonicParsing="false" onAction="#MainMenuButtonClicked" opacity="0.0" prefHeight="21.0" prefWidth="91.0" style="-fx-background-image: url(&quot;src/main/resources/com/example/demo1/back.jpg&quot;); -fx-background-size: 100% 100%; -fx-background-radius: 10;" text="Button" />
-      <Label fx:id="matchesWon" alignment="CENTER" contentDisplay="CENTER" layoutX="53.0" layoutY="104.0" prefHeight="28.0" prefWidth="51.0" text="21" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="matchesWon" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="112.0" prefHeight="28.0" prefWidth="108.0" text="Player" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font size="29.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="matchesLost" alignment="CENTER" contentDisplay="CENTER" layoutX="185.0" layoutY="104.0" prefHeight="28.0" prefWidth="51.0" text="20" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="matchesLost" alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="108.0" prefHeight="37.0" prefWidth="114.0" text="Player" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font size="29.0" />
+            <Font size="18.0" />
          </font>
       </Label>
     </children>

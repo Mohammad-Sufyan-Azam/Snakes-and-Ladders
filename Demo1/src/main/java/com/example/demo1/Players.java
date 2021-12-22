@@ -7,9 +7,12 @@ import javafx.scene.layout.GridPane;
 public class Players {
     public ImageView player1;
     public ImageView player2;
-    private final String name1;
-    private final String name2;
+    public ImageView playerTag1;
+    public ImageView playerTag2;
+    private static String name1;
+    private static String name2;
 
+    private static int winner;
     private Button roll;
     public GridPane grid;
 
@@ -17,17 +20,20 @@ public class Players {
     private boolean First1, First2;     // For start check of player
     private int p1col, p1row;           // For coordinates of player1
     private int p2col, p2row;           // For coordinates of player2
-    private int counter1, counter2;     // For snakes and ladders
+    private static int counter1, counter2;     // For snakes and ladders
     private int[] scoreBoard1, scoreBoard2;     // loss, win
 
-    Players(int noOfPlayers, ImageView player1, ImageView player2, GridPane grid, Button roll, String name1, String name2) {
+    Players(int noOfPlayers, ImageView player1, ImageView player2, ImageView playerTag1, ImageView playerTag2, GridPane grid, Button roll, String nam1, String nam2) {
         this.player1 = player1;
         this.player2 = player2;
+        this.playerTag1 = playerTag1;
+        this.playerTag2 = playerTag2;
+
         this.roll = roll;
         this.grid = grid;
 
-        this.name1 = name1;
-        this.name2 = name2;
+        name1 = nam1;
+        name2 = nam2;
 
         this.scoreBoard1 = new int[2];
         this.scoreBoard2 = new int[2];
@@ -38,13 +44,15 @@ public class Players {
         this.p1col = 0; this.p1row = 9;
         this.p2col = 0; this.p2row = 9;
 
-        this.counter1 = 0; this.counter2 = 0;
+        counter1 = 0; counter2 = 0;
         this.First1 = false; this.First2 = false;
     }
 
     public void move2Players(int dice) {
         System.out.println("Dice gives: "+dice);
         if (player1Turn) {
+            playerTag2.setOpacity(0.7);
+            playerTag1.setOpacity(1.0);
             int start = CheckStarted(p1col, p1row, dice, First1);
             if (start == -1) {
                 changeTurn();
@@ -55,7 +63,7 @@ public class Players {
                 GridPane.setConstraints(player1, 0, 9);
                 changeTurn();
                 this.First1 = true;
-                this.counter1 += 1;
+                counter1 += 1;
                 return;
             }
             counter1 += dice;
@@ -78,6 +86,8 @@ public class Players {
             changeTurn();
         }
         else if(player2Turn) {
+            playerTag1.setOpacity(0.7);
+            playerTag2.setOpacity(1.0);
             int start = CheckStarted(p2col, p2row, dice, First2);
             if (start == -1) {
                 changeTurn();
@@ -88,7 +98,7 @@ public class Players {
                 GridPane.setConstraints(player2, 0, 9);
                 changeTurn();
                 this.First2 = true;
-                this.counter2 += 1;
+                counter2 += 1;
                 return;
             }
             counter2 += dice;
@@ -137,10 +147,7 @@ public class Players {
 
         int snake = b.getSnakesTail(count);
         int ladder = b.getLaddersHead(count);
-        //System.out.println("LADDER: "+ladder+"\t\tSNAKE: "+snake);
         if (snake > 0) {
-            /*System.out.println("Position before: "+count);
-            System.out.println("Snake counter: "+snake);*/
             int[] cord = b.getCoordinate(snake);
             col = cord[0];
             row = cord[1];
@@ -149,8 +156,6 @@ public class Players {
         }
 
         else if (ladder > 0) {
-            /*System.out.println("Position before: "+count);
-            System.out.println("Ladder counter: "+ladder);*/
             int[] cord = b.getCoordinate(ladder);
             col = cord[0];
             row = cord[1];
@@ -187,7 +192,7 @@ public class Players {
         }
     }
 
-    public String getWinner() {
+    public static String getWinner() {
         if (counter1 == 100)
             return name1;
         if (counter2 == 100)
@@ -220,12 +225,33 @@ public class Players {
         return new int[]{0, 0};
     }
 
-    public String getLoser() {
+    public static String getLoser() {
         if (counter1 == 100)
             return name2;
         if (counter2 == 100)
             return name1;
         return "null";
+    }
+
+    public void Restart() {
+        roll.setDisable(false);
+
+        this.player1Turn = true;
+        this.player2Turn = false;
+
+        this.p1col = 0; this.p1row = 9;
+        this.p2col = 0; this.p2row = 9;
+
+        counter1 = 0; counter2 = 0;
+        this.First1 = false; this.First2 = false;
+
+        GridPane.setConstraints(player1, 0, 9);
+        GridPane.setConstraints(player2, 0, 9);
+        grid.getChildren().remove(player1);
+        grid.getChildren().remove(player2);
+
+        playerTag2.setOpacity(1.0);
+        playerTag1.setOpacity(1.0);
     }
 }
 

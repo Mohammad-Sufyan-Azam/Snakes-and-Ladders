@@ -18,6 +18,12 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.paint.Color;
+
 public class Dice implements Runnable {
 
     int diceNo = 0;
@@ -50,7 +56,6 @@ public class Dice implements Runnable {
             setDiceNo(diceNo);
 
         }
-
         //System.out.println("DICE NO: " + diceNo);
     }
 

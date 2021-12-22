@@ -1,9 +1,9 @@
 package com.example.demo1;
 
-import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,18 +13,19 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-import java.util.concurrent.CountDownLatch;
 
 public class HelloController {
-    @FXML
+
     public ImageView player1;
-    @FXML
     public ImageView player2;
     public GridPane grid;
     public Button back;
+    public ImageView tag1;
+    public ImageView tag2;
     @FXML
     private Label welcomeText;
     @FXML
@@ -32,7 +33,7 @@ public class HelloController {
     @FXML
     private ImageView diceImage;
 
-    private Dice d = new Dice(diceImage, roll);
+    private Dice d;// = new Dice(diceImage, roll);
     private Board b = new Board();
     private Players p;
     private boolean playersInitialized = false;
@@ -40,8 +41,13 @@ public class HelloController {
 
 
     @FXML
-    protected void backButtonClicked() throws IOException {
+    protected void backButtonClicked(ActionEvent actionEvent) throws IOException {
         System.out.println("Data Saved!");
+        /*FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("End-Box.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 272, 167);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();*/
 
         // Main method of EndBoxController Class
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("End-Box.fxml"));
@@ -52,25 +58,39 @@ public class HelloController {
         finishBox.setTitle("Close");
         finishBox.setScene(scene);
         finishBox.showAndWait();
+
+        if (EndBoxController.EndBoxChooses == 1) {    // Chooses main menu
+            //Change Scene
+            fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Initial-Scene1.fxml"));
+            scene = new Scene(fxmlLoader.load(), 580, 760);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     protected int RollDice() throws InterruptedException {
+
         Random random = new Random();
         int dice = random.nextInt(6)+1;
-        //System.out.println("Dice gives: "+dice);
+        int diceNo = dice;
+        String location = "src/main/resources/com/example/demo1/dice/dice" + diceNo + ".png";
+        File file = new File(location);
+        diceImage.setImage(new Image(file.toURI().toString()));
         return dice;
     }
 
     @FXML
-    private void movePlayers() throws Exception {
+    private void movePlayers(ActionEvent actionEvent) throws Exception {
         int i=1;
-        System.out.println("In the movePlayers function: "+playingComputer);
+        //System.out.println("In the movePlayers function: "+playingComputer);
         if (!playersInitialized)
         {
-            if (playingComputer)
-                p = new Players(2, player1, player2, grid, roll, "Player1", "Computer");
+            InitialScene1 init = new InitialScene1();
+            if (init.getComputerPlaying())
+                p = new Players(2, player1, player2, tag1, tag2, grid, roll, "Player1", "Computer");
             else
-                p = new Players(2, player1, player2, grid, roll, "Player1", "Player2");
+                p = new Players(2, player1, player2, tag1, tag2, grid, roll, "Player1", "Player2");
 
             playersInitialized = true;
         }
@@ -79,8 +99,7 @@ public class HelloController {
             int die = RollDice();
             p.move2Players(die);
 
-            String win = p.getWinner();
-            String lose = p.getLoser();
+            String win = Players.getWinner();
             if (!win.equals("null"))
             {
                 roll.setDisable(true);
@@ -96,6 +115,18 @@ public class HelloController {
                 Box.setTitle("Result");
                 Box.setScene(scene);
                 Box.showAndWait();
+
+                //Change Scene
+                if (ResultBoxController.ResultBoxChooses == 1) {    // Chooses main menu
+                    fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Initial-Scene1.fxml"));
+                    scene = new Scene(fxmlLoader.load(), 580, 760);
+                    Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                }
+                else if (ResultBoxController.ResultBoxChooses == 2) {   // Chooses Restart
+                    p.Restart();
+                }
             }
             i+=1;
         }
@@ -103,12 +134,7 @@ public class HelloController {
 
     private void showResult() {
         int[] arr = p.getWinnerScore();
-        System.out.println(p.getWinner()+"'s lost matches are: "+arr[0]);
-        System.out.println(p.getWinner()+"'s won matches are: "+arr[1]);
-    }
-
-    public void ComputerPlaying(boolean b) {
-        System.out.println("In the computer function: "+b);
-        this.playingComputer = b;
+        System.out.println(Players.getWinner()+"'s lost matches are: "+arr[0]);
+        System.out.println(Players.getWinner()+"'s won matches are: "+arr[1]);
     }
 }
